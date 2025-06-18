@@ -3,31 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chatbot - Enhanced Design</title>
+    <title>AI Chatbot - By Sujoy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --background-light: #f9fafb;
+            --background-light: #e0e7ff;
             --text-light: #1f2937;
-            --background-dark: #111827;
-            --text-dark: #f3f4f6;
-            --primary-color: #3b82f6;
-            --secondary-color: #8b5cf6;
+            --glass-bg-light: rgba(255, 255, 255, 0.6);
+            --glass-border-light: rgba(255, 255, 255, 0.8);
+            
+            --background-dark: #0f172a;
+            --text-dark: #e2e8f0;
+            --glass-bg-dark: rgba(30, 41, 59, 0.5);
+            --glass-border-dark: rgba(255, 255, 255, 0.1);
         }
-        html.light {
-            background-color: var(--background-light);
-            color: var(--text-light);
+        
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        html.dark {
-            background-color: var(--background-dark);
-            color: var(--text-dark);
-        }
+
         body {
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s, color 0.3s;
+            background-size: 200% 200%;
+            transition: background-color 0.5s;
         }
+
+        html.light body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            animation: gradient-animation 15s ease infinite;
+        }
+
+        html.dark body {
+             background: linear-gradient(-45deg, #0f172a, #1e293b, #334155, #475569);
+             animation: gradient-animation 20s ease infinite;
+        }
+
+        .glass-container {
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 24px;
+            transition: background-color 0.3s, border 0.3s;
+        }
+
+        html.light .glass-container {
+            background-color: var(--glass-bg-light);
+            border: 1px solid var(--glass-border-light);
+        }
+
+        html.dark .glass-container {
+            background-color: var(--glass-bg-dark);
+            border: 1px solid var(--glass-border-dark);
+        }
+        
         .chat-container::-webkit-scrollbar {
             width: 8px;
         }
@@ -35,45 +66,56 @@
             background: transparent;
         }
         .chat-container::-webkit-scrollbar-thumb {
-            background-color: rgba(0,0,0,0.1);
+            background-color: rgba(0,0,0,0.2);
             border-radius: 4px;
         }
         html.dark .chat-container::-webkit-scrollbar-thumb {
-            background-color: rgba(255,255,255,0.1);
+            background-color: rgba(255,255,255,0.2);
         }
         .message-bubble {
             transition: transform 0.3s ease-out, opacity 0.3s ease-out;
         }
         .message-bubble.new {
-            transform: scale(0.95);
+            transform: scale(0.95) translateY(10px);
             opacity: 0;
+        }
+        .voice-btn.recording:before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: #ef4444;
+            border-radius: 50%;
+            animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+          0% { transform: scale(.33); opacity: 1; }
+          80%, 100% { opacity: 0; }
         }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 p-4 transition-all duration-500">
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
 
-    <div class="w-full max-w-3xl h-[95vh] flex flex-col bg-white dark:bg-gray-800 shadow-2xl rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-700">
+    <div class="w-full max-w-3xl h-[95vh] flex flex-col glass-container shadow-2xl">
         <!-- Header -->
-        <div class="p-5 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-800/50 rounded-t-3xl">
+        <div class="p-5 flex justify-between items-center border-b border-white/20 dark:border-white/10">
             <div class="flex items-center space-x-4">
                 <div class="relative">
-                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-                        <i class="fas fa-robot text-2xl text-white"></i>
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
+                        <i class="fas fa-brain text-2xl text-white"></i>
                     </div>
-                    <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-green-400 border-2 border-white dark:border-gray-800"></span>
+                    <span class="absolute bottom-0 right-0 block h-3.5 w-3.5 rounded-full bg-green-400 border-2 border-white dark:border-gray-800 ring-1 ring-green-400"></span>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold text-gray-800 dark:text-white">AI Assistant</h1>
-                    <p class="text-sm text-green-500 font-medium">Online</p>
+                    <h1 class="text-xl font-bold text-gray-800 dark:text-white">NexusAI</h1>
+                    <p class="text-sm text-green-600 dark:text-green-400 font-medium">Online</p>
                 </div>
             </div>
             <div class="flex items-center space-x-2">
-                <button id="theme-toggle" class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <svg id="theme-icon-light" class="h-6 w-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l.707.707M6.343 17.657l.707.707M12 18a6 6 0 100-12 6 6 0 000 12z"></path></svg>
-                    <svg id="theme-icon-dark" class="h-6 w-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                <button id="theme-toggle" class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-black/10 dark:hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                    <i id="theme-icon" class="fas fa-sun text-lg"></i>
                 </button>
-                 <button id="clear-chat" class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                 <button id="clear-chat" class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-black/10 dark:hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all">
+                    <i class="fas fa-trash-alt text-lg"></i>
                 </button>
             </div>
         </div>
@@ -84,16 +126,16 @@
         </div>
 
         <!-- Input Form -->
-        <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-b-3xl">
-             <div class="flex items-center space-x-3">
-                <button id="voice-input" class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <i class="fas fa-microphone text-xl"></i>
+        <div class="p-4 border-t border-white/20 dark:border-white/10">
+             <div class="flex items-center space-x-3 bg-white/50 dark:bg-black/20 rounded-full p-2 shadow-inner">
+                <button id="voice-input" class="voice-btn relative flex-shrink-0 w-11 h-11 flex items-center justify-center rounded-full text-gray-500 dark:text-gray-300 bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                    <i class="fas fa-microphone-alt text-xl"></i>
                 </button>
                 <form id="chat-form" class="flex-1 flex items-center">
-                    <input type="text" id="chat-input" placeholder="Type your message..." autocomplete="off"
-                        class="flex-1 w-full px-5 py-3 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-transparent rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-shadow duration-300 shadow-sm focus:shadow-md">
+                    <input type="text" id="chat-input" placeholder="Ask NexusAI anything..." autocomplete="off"
+                        class="flex-1 w-full px-5 py-3 bg-transparent text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 border-none focus:outline-none focus:ring-0">
                     <button type="submit" id="send-button"
-                        class="ml-3 px-4 py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-transform transform hover:scale-105 disabled:opacity-50 disabled:scale-100">
+                        class="flex-shrink-0 w-11 h-11 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-900/10 transition-all transform hover:scale-110 disabled:opacity-70 disabled:scale-100">
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </form>
@@ -112,8 +154,7 @@
         const chatInput = document.getElementById('chat-input');
         const sendButton = document.getElementById('send-button');
         const themeToggle = document.getElementById('theme-toggle');
-        const themeIconLight = document.getElementById('theme-icon-light');
-        const themeIconDark = document.getElementById('theme-icon-dark');
+        const themeIcon = document.getElementById('theme-icon');
         const clearChatButton = document.getElementById('clear-chat');
         const copyToast = document.getElementById('copy-toast');
         const voiceInputButton = document.getElementById('voice-input');
@@ -125,13 +166,13 @@
             if (theme === 'dark') {
                 document.documentElement.classList.add('dark');
                 document.documentElement.classList.remove('light');
-                themeIconLight.classList.remove('hidden');
-                themeIconDark.classList.add('hidden');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
             } else {
                 document.documentElement.classList.add('light');
                 document.documentElement.classList.remove('dark');
-                themeIconLight.classList.add('hidden');
-                themeIconDark.classList.remove('hidden');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
             }
         };
 
@@ -151,7 +192,7 @@
                 chatHistory = JSON.parse(savedHistory);
                 chatHistory.forEach(msg => addMessageToUI(msg.sender, msg.text, false));
             } else {
-                 addMessageToUI('ai', "Hello! I'm your enhanced AI Assistant. How can I help you today?", true);
+                 addMessageToUI('ai', "Welcome to NexusAI. How may I assist you in this reality?", true);
             }
         };
 
@@ -164,23 +205,18 @@
             const messageElement = document.createElement('div');
             const isUser = sender === 'user';
             
-            messageElement.className = `flex items-end gap-3 my-4 message-bubble ${isUser ? 'justify-end' : ''} ${animate ? 'new' : ''}`;
+            messageElement.className = `flex items-end gap-3 my-4 message-bubble ${isUser ? 'flex-row-reverse' : 'flex-row'} ${animate ? 'new' : ''}`;
             
             const content = `
-                ${!isUser ? `
                 <div class="flex-shrink-0">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-indigo-600 flex items-center justify-center">
-                        <i class="fas fa-robot text-lg text-white"></i>
+                    <div class="w-8 h-8 rounded-full ${isUser ? 'bg-gradient-to-r from-blue-500 to-cyan-500' : 'bg-gradient-to-r from-purple-500 to-indigo-600'} flex items-center justify-center shadow-md">
+                        <i class="fas ${isUser ? 'fa-user' : 'fa-brain'} text-lg text-white"></i>
                     </div>
-                </div>` : ''}
-                <div class="max-w-sm md:max-w-md lg:max-w-lg p-3 px-4 rounded-2xl shadow-md relative ${isUser ? 'bg-blue-600 text-white rounded-br-none' : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-bl-none'}">
+                </div>
+                <div class="max-w-sm md:max-w-md lg:max-w-lg p-3 px-4 rounded-2xl shadow-md relative ${isUser ? 'bg-blue-600 text-white rounded-br-none' : 'bg-white/80 dark:bg-gray-700/80 text-gray-800 dark:text-gray-200 rounded-bl-none'}">
                     <p class="text-sm">${text}</p>
                 </div>
-                ${isUser ? `
-                <div class="flex-shrink-0">
-                   <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm">You</div>
-                </div>` : ''}
-                ${!isUser ? `<button class="copy-btn p-2 rounded-full text-gray-400 hover:text-blue-500 hover:bg-gray-200 dark:hover:bg-gray-600" data-text="${text}" title="Copy text">
+                ${!isUser ? `<button class="copy-btn p-2 rounded-full text-gray-400 hover:text-blue-500 hover:bg-black/10 dark:hover:bg-white/10" data-text="${text}" title="Copy text">
                     <i class="fas fa-copy"></i>
                 </button>` : ''}
             `;
@@ -188,17 +224,15 @@
             messageElement.innerHTML = content;
             chatContainer.appendChild(messageElement);
             
-            if (animate) {
-                setTimeout(() => {
+            requestAnimationFrame(() => {
+                if (animate) {
+                    setTimeout(() => {
+                        messageElement.classList.remove('new');
+                    }, 50);
+                } else {
                     messageElement.classList.remove('new');
-                    messageElement.style.transform = 'scale(1)';
-                    messageElement.style.opacity = '1';
-                }, 50);
-            } else {
-                 messageElement.classList.remove('new');
-                 messageElement.style.transform = 'scale(1)';
-                 messageElement.style.opacity = '1';
-            }
+                }
+            });
 
 
             chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -210,14 +244,14 @@
                 if (!indicator) {
                     indicator = document.createElement('div');
                     indicator.id = 'typing-indicator';
-                    indicator.className = 'flex items-end gap-3 my-4';
+                    indicator.className = 'flex items-end gap-3 my-4 message-bubble new';
                     indicator.innerHTML = `
-                         <div class="flex-shrink-0">
-                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-indigo-600 flex items-center justify-center">
-                                <i class="fas fa-robot text-lg text-white"></i>
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-indigo-600 flex items-center justify-center shadow-md">
+                                <i class="fas fa-brain text-lg text-white"></i>
                             </div>
                         </div>
-                        <div class="max-w-xs md:max-w-md lg:max-w-lg p-3 px-4 rounded-2xl shadow-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-bl-none">
+                        <div class="max-w-xs p-3 px-4 rounded-2xl shadow-md bg-white/80 dark:bg-gray-700/80 rounded-bl-none">
                            <div class="flex items-center space-x-1.5">
                                 <span class="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style="animation-delay: 0s;"></span>
                                 <span class="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style="animation-delay: 0.2s;"></span>
@@ -226,11 +260,13 @@
                         </div>
                     `;
                     chatContainer.appendChild(indicator);
+                    requestAnimationFrame(() => setTimeout(() => indicator.classList.remove('new'), 50));
                     chatContainer.scrollTop = chatContainer.scrollHeight;
                 }
             } else {
                 if (indicator) {
-                    indicator.remove();
+                    indicator.classList.add('new');
+                    setTimeout(() => indicator.remove(), 300);
                 }
             }
         };
@@ -247,15 +283,11 @@
             const modelChatHistory = chatHistory.map(msg => ({
                 role: msg.sender === 'user' ? 'user' : 'model',
                 parts: [{ text: msg.text }]
-            })).filter(msg => msg.text); // Ensure no empty messages are sent
+            })).filter(msg => msg.text); 
             
             const payload = {
-                contents: [...modelChatHistory],
+                contents: [...modelChatHistory, { role: "user", parts: [{ text: prompt }] }],
             };
-            
-            // Add current user prompt to the payload
-            payload.contents.push({ role: "user", parts: [{ text: prompt }] });
-
 
             try {
                 const response = await fetch(apiUrl, {
@@ -264,26 +296,22 @@
                     body: JSON.stringify(payload)
                 });
                 
-                if (!response.ok) {
-                    const errorBody = await response.text();
-                    throw new Error(`API error: ${response.status} ${response.statusText} - ${errorBody}`);
-                }
+                if (!response.ok) { throw new Error(`API error: ${response.status}`); }
 
                 const result = await response.json();
 
-                if (result.candidates && result.candidates.length > 0 && result.candidates[0].content && result.candidates[0].content.parts.length > 0) {
+                if (result.candidates && result.candidates[0].content?.parts[0]) {
                     const aiText = result.candidates[0].content.parts[0].text;
-                    addMessageToUI('ai', aiText);
                     chatHistory.push({ sender: 'ai', text: aiText });
                     saveChatHistory();
+                    addMessageToUI('ai', aiText);
                 } else {
-                     const errorMessage = "I'm sorry, I couldn't generate a response. The result was empty. Please try again.";
-                     addMessageToUI('ai', errorMessage);
+                     addMessageToUI('ai', "I encountered an issue processing that. Please try again.");
                 }
 
             } catch (error) {
                 console.error("Error fetching AI response:", error);
-                addMessageToUI('ai', "Sorry, I'm having trouble connecting. Please check the console for details and try again.");
+                addMessageToUI('ai', "Connection error. I am unable to process your request at the moment.");
             } finally {
                 showTypingIndicator(false);
                 sendButton.disabled = false;
@@ -298,21 +326,19 @@
             e.preventDefault();
             const userInput = chatInput.value.trim();
             if (userInput) {
-                addMessageToUI('user', userInput);
                 chatHistory.push({ sender: 'user', text: userInput });
-                // Don't save history here, save after getting a response to keep context paired
+                addMessageToUI('user', userInput);
                 getAIChatResponse(userInput);
                 chatInput.value = '';
             }
         });
 
         clearChatButton.addEventListener('click', () => {
-             // Using a custom modal would be better, but confirm is a quick solution
-            if (window.confirm("Are you sure you want to clear the entire chat history? This cannot be undone.")) {
+            if (confirm("Are you sure you want to erase this conversation? This action is irreversible.")) {
                 chatHistory = [];
                 localStorage.removeItem('chatHistory');
                 chatContainer.innerHTML = '';
-                addMessageToUI('ai', "Chat history cleared. How can I help you now?", false);
+                addMessageToUI('ai', "Memory wiped. Ready for a new conversation.", false);
             }
         });
 
@@ -323,30 +349,18 @@
                 navigator.clipboard.writeText(textToCopy).then(() => {
                     copyToast.classList.remove('opacity-0');
                     setTimeout(() => copyToast.classList.add('opacity-0'), 2000);
-                }).catch(err => {
-                     console.error('Failed to copy text using navigator: ', err);
-                     // Fallback for older browsers
-                     const tempTextArea = document.createElement('textarea');
-                     tempTextArea.value = textToCopy;
-                     document.body.appendChild(tempTextArea);
-                     tempTextArea.select();
-                     try {
-                         document.execCommand('copy');
-                         copyToast.classList.remove('opacity-0');
-                         setTimeout(() => copyToast.classList.add('opacity-0'), 2000);
-                     } catch (err) {
-                         console.error('Fallback copy failed: ', err);
-                     }
-                     document.body.removeChild(tempTextArea);
                 });
             }
         });
 
         voiceInputButton.addEventListener('click', () => {
-            // Placeholder for voice input functionality
-            alert('Voice input feature coming soon!');
+            voiceInputButton.classList.toggle('recording');
+            if(voiceInputButton.classList.contains('recording')) {
+              alert('Voice recording started (demo)!');
+            } else {
+              alert('Voice recording stopped (demo)!');
+            }
         });
-
 
         // --- INITIALIZATION ---
         window.onload = () => {
