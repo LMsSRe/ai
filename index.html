@@ -241,8 +241,8 @@
             sendButton.disabled = true;
             chatInput.disabled = true;
 
-            const apiKey = ""; // API key is handled by the environment
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            const apiKey = "AIzaSyAJ_SVms1rZcWeD6DEgfObzLXuP7u_8_AU"; // API key is handled by the environment
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyAJ_SVms1rZcWeD6DEgfObzLXuP7u_8_AU`;
             
             const modelChatHistory = chatHistory.map(msg => ({
                 role: msg.sender === 'user' ? 'user' : 'model',
